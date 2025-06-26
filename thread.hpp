@@ -8,9 +8,11 @@ class Thread
 {
 public:
 
-    static void handler(Thread* t)
+    static void* handler(void* t)
     {
-        if(t->_task) t->_task();
+        Thread* tmp = static_cast<Thread*>(t);
+        if(tmp->_task) tmp->_task();
+        return nullptr;
     }
     Thread() = default;
 
@@ -18,7 +20,7 @@ public:
     Thread(Func&& func,Args&&... args)
     {   
         _task = std::bind(std::forward<Func>(func), std::forward<Args>(args)...);
-        ::pthread_create(&_tid, nullptr, handler, this );
+        ::pthread_create(&_tid, nullptr, handler, this);
     }
 
 
