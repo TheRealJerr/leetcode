@@ -15,6 +15,7 @@ public:
         Tendency tend_left = Tendency::NOT_KOWN;
         int n = nums.size();
         int count = 0;
+        
         for(int i = 0;i < n;i++)
         {
             // 算算当前右边的状态
